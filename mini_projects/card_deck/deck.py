@@ -10,6 +10,9 @@ class Deck:
     def __repr__(self):
         return f'Deck of { len(self.cards) } cards'
 
+    def __iter__(self):
+        return iter(self.cards)
+
     def _deal(self, cards_to_deal):
         removed_cards = []
         if len(self.cards) < cards_to_deal:
@@ -46,6 +49,9 @@ print(card)
 hand = deck.deal_hand(5)
 print(hand)
 print(deck)
+
+for card in deck:
+    print(card)
 
 
     
