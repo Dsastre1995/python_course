@@ -7,3 +7,7 @@ def dig_pow(n, p):
     return num_result[0] if len(num_result) > 0 else -1
 
 print(dig_pow(695, 2))
+
+# TODO Try by using pow()
+
+# ________________________________________________________
