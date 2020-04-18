@@ -25,8 +25,8 @@ class Deck:
 
         return removed_cards    
 
-    def count():
-        return len(Deck.cards)
+    def count(self):
+        return len(self.cards)
 
     def shuffle(self):
         if (len(self.cards) < Deck.deck_size):
@@ -41,17 +41,17 @@ class Deck:
         return self._deal(number_of_cards)
 
 
-deck = Deck()
-print(deck)
-deck.shuffle()
-card = deck.deal_card()
-print(card)
-hand = deck.deal_hand(5)
-print(hand)
-print(deck)
+# deck = Deck()
+# print(deck)
+# deck.shuffle()
+# card = deck.deal_card()
+# print(card)
+# hand = deck.deal_hand(5)
+# print(hand)
+# print(deck)
 
-for card in deck:
-    print(card)
+# for card in deck:
+#     print(card)
 
 
     

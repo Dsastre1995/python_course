@@ -1,4 +1,9 @@
 # def make_noise():
+#     """
+#     Print some random text
+#     >>> make_noise()
+#     THE CROWD GOES WILD
+#     """
 #     print('THE CROWD GOES WILD')
 
 # make_noise()
@@ -32,6 +37,14 @@
 # ___________________________________________________
 
 # def yell(string):
+#     """
+#     Converts parameter into upper
+#     >>> yell('hola me llamo david')
+#     'HOLA ME LLAMO DAVID!'
+
+#     >>> yell(' ')
+#     ' !'
+#     """
 #     return f"{ string.upper() }!"
 
 # print(yell("Let's play magic the gathering"))
@@ -49,24 +62,36 @@
 
 # ___________________________________________________
 
-# def speak(animal_name = 'dog'):
-#     animals = [
-#         {'name': 'pig', 'sound': 'oink'},
-#         {'name': 'duck', 'sound': 'quack'},
-#         {'name': 'cat', 'sound': 'meow'},
-#         {'name': 'dog', 'sound': 'woof'},
-#     ]
+def speak(animal_name = 'dog'):
+    """
+    Get the animal sound by the animal name, default param is dog
+    >>> speak('dog')
+    'woof'
 
-#     selected_animal = [animal for animal in animals if animal['name'] == animal_name]
+    >>> speak(' ')
+    '?'
 
-#     if len(selected_animal) == 0:
-#         return '?'
+    >>> speak('elephant')
+    '?'
+    """
 
-#     return selected_animal[0]['sound']
+    animals = [
+        {'name': 'pig', 'sound': 'oink'},
+        {'name': 'duck', 'sound': 'quack'},
+        {'name': 'cat', 'sound': 'meow'},
+        {'name': 'dog', 'sound': 'woof'},
+    ]
+
+    selected_animal = [animal for animal in animals if animal['name'] == animal_name]
+
+    if len(selected_animal) == 0:
+        return '?'
+
+    return selected_animal[0]['sound']
     
 
 
-# print(speak('cat'))
+print(speak('cat'))
                 
 # ___________________________________________________
 
@@ -247,14 +272,14 @@
 
 # ___________________________________________________
 
-def reverse_text(text):
-    text_pieces = text.split()
-    result = '';
+# def reverse_text(text):
+#     text_pieces = text.split()
+#     result = '';
 
-    for item in reversed(text_pieces):
-        result += item + ' '
+#     for item in reversed(text_pieces):
+#         result += item + ' '
 
-    return result
+#     return result
 
-print(reverse_text(input('Put a sentence: \n')))
+# print(reverse_text(input('Put a sentence: \n')))
 
