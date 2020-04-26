@@ -23,42 +23,73 @@ class Tournament(Team, Player):
 
         return players
 
-    def _suffle_players(self, players, level):
-        for player_level in range(round(level) + 1):
-            players_same_level = shuffle(list(filter(lambda player: player.level == player_level, players)))
-            print(players_same_level)
-            if players_same_level and len(players_same_level) > 1:
-                players.extend(players_same_level)
-        
-        return set(players)
+    def _createCouples(self, players_down_average, players_up_average):
+        couples = list()
+        sorted_up_average_players = sorted(players_up_average, key=lambda player: player.level, reverse=True)
+        for index in range(len(players_down_average)):
+            couples.append([players_down_average[index], sorted_up_average_players[index]])
 
+        return couples
 
-    def _suffle_player_with_same_level(self, players, level_average):
-        players_down_average = list(filter(lambda player: player.level <= level_average, players))
-        players_up_average = list(filter(lambda player: player.level > level_average, players))
+    def _suffle_players(self, players):
+        result = list()
+        for level in range(1, 11):
+            same_level_players = list(filter(lambda player: player.level > level - 1 and player.level <= level, players))
+            if len(same_level_players) > 1:
+                shuffle(same_level_players)
+            result.extend(same_level_players)
 
-        players_down_average = list(self._suffle_players(players_down_average, level_average))
-        players_up_average = list(self._suffle_players(players_up_average, 9))
+        return result
 
-        # print(players_down_average)
-        # print(players_up_average)
-            
-
-    def make_teams(self):
-        players = self._ask_participant_data()
-        players.sort(key = lambda player: player.level)
-
+    def _split_player_by_level(self, players):
         level_average = sum([
             players[int((len(players) / 2) - 1)].level,
             players[int(len(players) / 2)].level
         ]) / 2
 
-        print(level_average)
+        down_average_players = list(filter(lambda player: player.level <= level_average, players))
+        up_average_players = list(filter(lambda player: player.level > level_average, players))
 
-        self._suffle_player_with_same_level(players, level_average)
+        return [down_average_players, up_average_players]
+            
 
-t = Tournament('08/06/2020', 'Pins Padel', 5, 4)
+    def make_teams(self):
+        players = self._ask_participant_data()
+        players = self._suffle_players(players)
+        splited_players = self._split_player_by_level(players)
+
+        while len(splited_players[0]) > len(splited_players[1]):
+            ssplited_players[0].append(splited_players[1].pop())
+
+        couples = self._createCouples(splited_players[0], splited_players[1])
+
+        for (index, couple) in enumerate(couples):
+            team = Team(f'team-{ index + 1 }', couple[0], couple[1])
+            self.teams.append(team)
+
+    def _create_possible_rounds(self):
+        shuffle(self.teams)
+        round_test = [[self.teams[x], self.teams[x + 1]] for x in range(0, len(self.teams), 2)]
+
+        return round_test
+
+    def set_ranking(self):
+        rounds_num = self.num_participants if len(self.num_participants) % 2 != 0 else len(self.num_participants) - 1
+        rounds = []
+
+        for i in range(rounds_num):
+            possible_rounds = self._create_possible_rounds()
+            already_exists_in_round = any(possible_rounds in round for round in rounds for possible_round in possible_rounds):
+            if already_exists_in_round:
+
+            else:
+                rounds.append(possible_round)
+
+t = Tournament('08/06/2020', 'Pins Padel', 5, )
 t.make_teams()
+t.set_ranking()
+print(t.ranking)
+
     # Pending TODOs:
     # - Implement logic for creating couples
     # - Add function for shuffle player with same LEVEL
