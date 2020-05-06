@@ -13,6 +13,7 @@ with open('blog_data.csv', 'w') as file:
 
     for article in articles:
         a_tag = article.find('a')
+        print(a_tag)
         time_tag = article.find('time')
 
         title = a_tag.get_text()
